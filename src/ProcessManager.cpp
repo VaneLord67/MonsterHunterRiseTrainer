@@ -1,4 +1,4 @@
-#include "ProcessManager.h"
+#include "../include/ProcessManager.h"
 
 DWORD GetProcessIdByName(const wchar_t* processName) {
     DWORD pid = 0;
