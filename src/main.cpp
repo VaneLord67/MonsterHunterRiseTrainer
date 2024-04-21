@@ -1,6 +1,8 @@
 #include "../include/gui.h"
 #include <iostream>
 #include "../include/ProcessManager.h"
+#include "../include/ITrainerItem.h"
+#include "../include/TrainerItems.h"
 
 //int WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 int main(void)
@@ -21,7 +23,7 @@ int main(void)
     }
 
     // Show the window
-    // ::ShowWindow(hwnd, SW_SHOWDEFAULT);
+    //::ShowWindow(hwnd, SW_SHOWDEFAULT);
     ::ShowWindow(hwnd, SW_HIDE);
     ::UpdateWindow(hwnd);
 
@@ -55,22 +57,24 @@ int main(void)
 
     // Our state
     bool show_main_window = true;
-    bool hp_checkbox_value = false;
-    bool stamina_checkbox_value = false;
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
     // Main loop
     bool done = false;
 
-    auto pm = ProcessManager::init(L"MonsterHunterRise.exe");
-    if (!pm) {
-        ;
-    }
-    int input_hp = 200;
-    int input_stamina = 6600;
+    // Trainer
+    auto pm = std::make_shared<ProcessManager>();
+    auto processName = L"MonsterHunterRise.exe";
+    ProcessManager::init(processName, pm);
+    // auto pm = ProcessManager::init(L"Tutorial-x86_64.exe");
 
-    // 在底部添加作者信息和 GitHub 地址
-    
+    std::vector<std::shared_ptr<ITrainerItem>> trainerItems = { 
+        std::make_shared<HPTrainerItem>(pm), 
+        std::make_shared<StaminaTrainerItem>(pm),
+        std::make_shared<AttackPropertyTrainerItem>(pm),
+        std::make_shared<DefensePropertyTrainerItem>(pm),
+        std::make_shared<FreeBuyTrainerItem>(pm),
+    };
 
     while (!done)
     {
@@ -112,35 +116,15 @@ int main(void)
 
             ImGui::Begin(u8"怪物猎人崛起：曙光 修改器", &show_main_window); // Create a window called "Hello, world!" and append into it.
 
-            ImGui::Checkbox("##hp_checkbox", &hp_checkbox_value);
-            if (hp_checkbox_value) {
-                input_hp = min(input_hp, 200);
-                input_hp = max(input_hp, 1);
-                float float_hp = static_cast<float>(input_hp);
-                pm->writeMemory(0xF6F2E58, { 0x3D0, 0x20, 0x10, 0x18, 0x18 }, &float_hp, sizeof(float_hp));
-                pm->writeMemory(0xF6F2E58, { 0x3D0, 0x20, 0x18 }, &input_hp, sizeof(input_hp));
+            if (!pm->processRunning()) {
+                ProcessManager::init(processName, pm);
+                ImGui::Text(u8"未检测到进程运行: MonsterHunterRise.exe");
             }
-            ImGui::SameLine();
-            ImGui::Text(u8"无限体力");
-            ImGui::SameLine();
-            ImGui::PushItemWidth(100); // 设置宽度为100像素
-            ImGui::InputInt("##hp_input", &input_hp, 0, 0);
-            ImGui::PopItemWidth();
-
-            ImGui::Checkbox("##stamina_checkbox", &stamina_checkbox_value);
-            if (stamina_checkbox_value) {
-                input_stamina = min(input_stamina, 6600);
-                input_stamina = max(input_stamina, 0);
-                float float_stamina = static_cast<float>(input_stamina);
-                pm->writeMemory(0xF6F2E58, { 0x3D0, 0x20, 0x28 }, &float_stamina, sizeof(float_stamina));
-                pm->writeMemory(0xF6F2E58, { 0x3D0, 0x20, 0x2C }, &float_stamina, sizeof(float_stamina));
+            else {
+                for (auto& trainerItem : trainerItems) {
+                    trainerItem->loop();
+                }
             }
-            ImGui::SameLine();
-            ImGui::Text(u8"无限耐力");
-            ImGui::SameLine();
-            ImGui::PushItemWidth(100); // 设置宽度为100像素
-            ImGui::InputInt("##stamina_input", &input_hp, 0, 0);
-            ImGui::PopItemWidth();
 
             ImGui::SetCursorPosY(ImGui::GetWindowHeight() - ImGui::GetTextLineHeightWithSpacing());
             ImGui::Text("Author Github: https://github.com/VaneLord67");

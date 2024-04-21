@@ -56,7 +56,7 @@
     <ClInclude Include="include\ProcessManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="include\TrainerItem.h">
+    <ClInclude Include="include\ITrainerItem.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\gui.h">
@@ -85,6 +85,24 @@
     </ClInclude>
     <ClInclude Include="third_party\imgui\imgui_impl_win32.h">
       <Filter>third_party\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FreeBuyTrainerItem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HPTrainerItem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TrainerItems.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\StaminaTrainerItem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AttackPropertyTrainerItem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DefensePropertyTrainerItem.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
