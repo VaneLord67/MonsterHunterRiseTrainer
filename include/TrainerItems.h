@@ -16,3 +16,5 @@
 #include "LockWeaponDurabilityTrainerItem.h"
 #include "MoneyTrainerItem.h"
 #include "PointTrainerItem.h"
+#include "TargetMonsterHPTrainerItem.h"
+#include "UnlimitGrabMaterialTrainerItem.h"

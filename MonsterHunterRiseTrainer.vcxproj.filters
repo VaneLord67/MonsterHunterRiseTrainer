@@ -140,5 +140,11 @@
     <ClInclude Include="include\PointTrainerItem.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="include\TargetMonsterHPTrainerItem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UnlimitGrabMaterialTrainerItem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -69,23 +69,26 @@ int main(void)
     // auto pm = ProcessManager::init(L"Tutorial-x86_64.exe");
 
     std::vector<std::shared_ptr<ITrainerItem>> trainerItems = { 
+        // checkbox
         std::make_shared<HPTrainerItem>(pm), 
         std::make_shared<StaminaTrainerItem>(pm),
         std::make_shared<AttackPropertyTrainerItem>(pm),
         std::make_shared<DefensePropertyTrainerItem>(pm),
-        std::make_shared<MoneyTrainerItem>(pm),
-        std::make_shared<PointTrainerItem>(pm),
         std::make_shared<LockWeaponDurabilityTrainerItem>(pm),
         std::make_shared<LongSwordEnergyTrainerItem>(pm),
         std::make_shared<LongSwordLevelTrainerItem>(pm),
-        
         std::make_shared<FreeBuyTrainerItem>(pm),
         std::make_shared<ForeverUseItemTrainerItem>(pm),
         std::make_shared<WirebugZeroCoolDownTrainerItem>(pm),
         std::make_shared<ForeverEnvWirebugTrainerItem>(pm),
+        std::make_shared<UnlimitGrabMaterialTrainerItem>(pm),
+        // button
+        std::make_shared<MoneyTrainerItem>(pm),
+        std::make_shared<PointTrainerItem>(pm),
         std::make_shared<BagFirstItemCountTrainerItem>(pm),
         std::make_shared<BagFirstItemIDTrainerItem>(pm),
-
+        std::make_shared<TargetMonsterHPTrainerItem>(pm),
+        // raw button
         std::make_shared<ZeroHourglassTrainerItem>(pm),
         std::make_shared<ResetTaskTimeTrainerItem>(pm),
     };

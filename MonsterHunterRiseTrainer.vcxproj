@@ -49,7 +49,9 @@
     <ClInclude Include="include\ITrainerItem.h" />
     <ClInclude Include="include\ResetTaskTimeTrainerItem.h" />
     <ClInclude Include="include\StaminaTrainerItem.h" />
+    <ClInclude Include="include\TargetMonsterHPTrainerItem.h" />
     <ClInclude Include="include\TrainerItems.h" />
+    <ClInclude Include="include\UnlimitGrabMaterialTrainerItem.h" />
     <ClInclude Include="include\WirebugZeroCoolDownTrainerItem.h" />
     <ClInclude Include="include\ZeroHourglassTrainerItem.h" />
     <ClInclude Include="third_party\imgui\imconfig.h" />
