@@ -14,8 +14,6 @@ private:
 	DWORD pid;
 	uint64_t baseAddress;
 	HANDLE hProcess;
-	std::mutex loopWriteSetMutex;
-	std::unordered_set<uint64_t> loopWriteSet;
 	LPVOID virAddr;
 
 	uint64_t getTargetAddress(uint64_t addr, const std::vector<int64_t>& offsets);

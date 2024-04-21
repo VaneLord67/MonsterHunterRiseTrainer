@@ -4,3 +4,8 @@
 #include "StaminaTrainerItem.h"
 #include "AttackPropertyTrainerItem.h"
 #include "DefensePropertyTrainerItem.h"
+#include "ForeverUseItemTrainerItem.h"
+#include "ZeroHourglassTrainerItem.h"
+#include "ResetTaskTimeTrainerItem.h"
+#include "WirebugZeroCoolDownTrainerItem.h"
+#include "ForeverEnvWirebugTrainerItem.h"

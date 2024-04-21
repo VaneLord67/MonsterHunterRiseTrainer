@@ -73,7 +73,14 @@ int main(void)
         std::make_shared<StaminaTrainerItem>(pm),
         std::make_shared<AttackPropertyTrainerItem>(pm),
         std::make_shared<DefensePropertyTrainerItem>(pm),
+
         std::make_shared<FreeBuyTrainerItem>(pm),
+        std::make_shared<ForeverUseItemTrainerItem>(pm),
+        std::make_shared<WirebugZeroCoolDownTrainerItem>(pm),
+        std::make_shared<ForeverEnvWirebugTrainerItem>(pm),
+
+        std::make_shared<ZeroHourglassTrainerItem>(pm),
+        std::make_shared<ResetTaskTimeTrainerItem>(pm),
     };
 
     while (!done)

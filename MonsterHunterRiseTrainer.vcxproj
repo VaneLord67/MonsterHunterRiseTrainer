@@ -33,13 +33,18 @@
   <ItemGroup>
     <ClInclude Include="include\AttackPropertyTrainerItem.h" />
     <ClInclude Include="include\DefensePropertyTrainerItem.h" />
+    <ClInclude Include="include\ForeverEnvWirebugTrainerItem.h" />
+    <ClInclude Include="include\ForeverUseItemTrainerItem.h" />
     <ClInclude Include="include\FreeBuyTrainerItem.h" />
     <ClInclude Include="include\gui.h" />
     <ClInclude Include="include\HPTrainerItem.h" />
     <ClInclude Include="include\ProcessManager.h" />
     <ClInclude Include="include\ITrainerItem.h" />
+    <ClInclude Include="include\ResetTaskTimeTrainerItem.h" />
     <ClInclude Include="include\StaminaTrainerItem.h" />
     <ClInclude Include="include\TrainerItems.h" />
+    <ClInclude Include="include\WirebugZeroCoolDownTrainerItem.h" />
+    <ClInclude Include="include\ZeroHourglassTrainerItem.h" />
     <ClInclude Include="third_party\imgui\imconfig.h" />
     <ClInclude Include="third_party\imgui\imgui.h" />
     <ClInclude Include="third_party\imgui\imgui_impl_dx11.h" />

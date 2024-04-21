@@ -104,5 +104,20 @@
     <ClInclude Include="include\DefensePropertyTrainerItem.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="include\ForeverUseItemTrainerItem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ZeroHourglassTrainerItem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ResetTaskTimeTrainerItem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\WirebugZeroCoolDownTrainerItem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ForeverEnvWirebugTrainerItem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
