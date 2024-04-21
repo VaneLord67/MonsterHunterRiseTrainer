@@ -32,12 +32,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AttackPropertyTrainerItem.h" />
+    <ClInclude Include="include\BagFirstItemCountTrainerItem.h" />
+    <ClInclude Include="include\BagFirstItemIDTrainerItem.h" />
     <ClInclude Include="include\DefensePropertyTrainerItem.h" />
     <ClInclude Include="include\ForeverEnvWirebugTrainerItem.h" />
     <ClInclude Include="include\ForeverUseItemTrainerItem.h" />
     <ClInclude Include="include\FreeBuyTrainerItem.h" />
     <ClInclude Include="include\gui.h" />
     <ClInclude Include="include\HPTrainerItem.h" />
+    <ClInclude Include="include\LockWeaponDurabilityTrainerItem.h" />
+    <ClInclude Include="include\LongSwordEnergyTrainerItem.h" />
+    <ClInclude Include="include\LongSwordLevelTrainerItem.h" />
     <ClInclude Include="include\ProcessManager.h" />
     <ClInclude Include="include\ITrainerItem.h" />
     <ClInclude Include="include\ResetTaskTimeTrainerItem.h" />

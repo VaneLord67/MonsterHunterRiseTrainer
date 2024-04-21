@@ -9,3 +9,8 @@
 #include "ResetTaskTimeTrainerItem.h"
 #include "WirebugZeroCoolDownTrainerItem.h"
 #include "ForeverEnvWirebugTrainerItem.h"
+#include "LongSwordEnergyTrainerItem.h"
+#include "LongSwordLevelTrainerItem.h"
+#include "BagFirstItemCountTrainerItem.h"
+#include "BagFirstItemIDTrainerItem.h"
+#include "LockWeaponDurabilityTrainerItem.h"
