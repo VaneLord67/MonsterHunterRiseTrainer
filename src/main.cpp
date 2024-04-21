@@ -73,6 +73,8 @@ int main(void)
         std::make_shared<StaminaTrainerItem>(pm),
         std::make_shared<AttackPropertyTrainerItem>(pm),
         std::make_shared<DefensePropertyTrainerItem>(pm),
+        std::make_shared<MoneyTrainerItem>(pm),
+        std::make_shared<PointTrainerItem>(pm),
         std::make_shared<LockWeaponDurabilityTrainerItem>(pm),
         std::make_shared<LongSwordEnergyTrainerItem>(pm),
         std::make_shared<LongSwordLevelTrainerItem>(pm),

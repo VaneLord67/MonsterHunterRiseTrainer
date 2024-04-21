@@ -14,3 +14,5 @@
 #include "BagFirstItemCountTrainerItem.h"
 #include "BagFirstItemIDTrainerItem.h"
 #include "LockWeaponDurabilityTrainerItem.h"
+#include "MoneyTrainerItem.h"
+#include "PointTrainerItem.h"

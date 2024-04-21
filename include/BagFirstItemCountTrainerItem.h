@@ -11,7 +11,7 @@ public:
     BagFirstItemCountTrainerItem(std::shared_ptr<ProcessManager> pm) : ITrainerItem(pm) {};
 
     void loop() {
-        bool pressButton = ImGui::SmallButton(u8"应用##bag_first_item_count_input");
+        bool pressButton = ImGui::SmallButton(u8"应用##bag_first_item_count_button");
         ImGui::SameLine();
         ImGui::Text(u8"道具袋首物品数量（在物品箱里重新放一下首物品后再应用）");
         if (pressButton) {

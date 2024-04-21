@@ -43,6 +43,8 @@
     <ClInclude Include="include\LockWeaponDurabilityTrainerItem.h" />
     <ClInclude Include="include\LongSwordEnergyTrainerItem.h" />
     <ClInclude Include="include\LongSwordLevelTrainerItem.h" />
+    <ClInclude Include="include\MoneyTrainerItem.h" />
+    <ClInclude Include="include\PointTrainerItem.h" />
     <ClInclude Include="include\ProcessManager.h" />
     <ClInclude Include="include\ITrainerItem.h" />
     <ClInclude Include="include\ResetTaskTimeTrainerItem.h" />
