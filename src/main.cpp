@@ -11,7 +11,7 @@ int WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPS
     // ImGui_ImplWin32_EnableDpiAwareness();
     WNDCLASSEXW wc = { sizeof(wc), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(nullptr), nullptr, nullptr, nullptr, nullptr, L"ImGui Example", nullptr };
     ::RegisterClassExW(&wc);
-    HWND hwnd = ::CreateWindowW(wc.lpszClassName, L"MonsterHunterRiseTrainer", WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, nullptr, nullptr, wc.hInstance, nullptr);
+    HWND hwnd = ::CreateWindowW(wc.lpszClassName, L"MonsterHunterRiseTrainer", WS_OVERLAPPEDWINDOW, 280, 20, 960, 800, nullptr, nullptr, wc.hInstance, nullptr);
 
     // Initialize Direct3D
     if (!CreateDeviceD3D(hwnd))
@@ -24,19 +24,19 @@ int WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPS
 
     // Show the window
     //::ShowWindow(hwnd, SW_SHOWDEFAULT);
-    //::ShowWindow(hwnd, SW_SHOW);
-    ::ShowWindow(hwnd, SW_HIDE);
+    ::ShowWindow(hwnd, SW_SHOW);
+    //::ShowWindow(hwnd, SW_HIDE);
     ::UpdateWindow(hwnd);
 
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // Enable Docking
-    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;       // Enable Multi-Viewport / Platform Windows
-    io.ConfigViewportsNoAutoMerge = true;
+    //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+    //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+    //io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // Enable Docking
+    //io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;       // Enable Multi-Viewport / Platform Windows
+    //io.ConfigViewportsNoAutoMerge = true;
 
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
@@ -130,13 +130,19 @@ int WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPS
 
         // custom ui code here
         {
-            ImGui::Begin(u8"怪物猎人崛起：曙光 修改器", &show_main_window);
+            static ImGuiWindowFlags main_window_flags = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings;
+            const ImGuiViewport* viewport = ImGui::GetMainViewport();
+            ImGui::SetNextWindowPos(viewport->WorkPos);
+            ImGui::SetNextWindowSize(viewport->WorkSize);
+
+            ImGui::Begin(u8"怪物猎人崛起：曙光 修改器", &show_main_window, main_window_flags);
 
             if (!pm->processRunning()) {
                 ProcessManager::init(processName, pm);
-                ImGui::Text(u8"未检测到进程运行: MonsterHunterRise.exe");
+                ImGui::Text(u8"未检测到进程运行: %ls", processName);
             }
             else {
+                ImGui::Text(u8"进程已运行：%ls", processName);
                 for (auto& trainerItem : trainerItems) {
                     trainerItem->loop();
                 }
