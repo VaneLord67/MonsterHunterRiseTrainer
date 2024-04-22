@@ -4,14 +4,14 @@
 #include "../include/ITrainerItem.h"
 #include "../include/TrainerItems.h"
 
-//int WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
-int main(void)
+int WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
+//int main(void)
 {
     // Create application window
     // ImGui_ImplWin32_EnableDpiAwareness();
     WNDCLASSEXW wc = { sizeof(wc), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(nullptr), nullptr, nullptr, nullptr, nullptr, L"ImGui Example", nullptr };
     ::RegisterClassExW(&wc);
-    HWND hwnd = ::CreateWindowW(wc.lpszClassName, L"Dear ImGui DirectX11 Example", WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, nullptr, nullptr, wc.hInstance, nullptr);
+    HWND hwnd = ::CreateWindowW(wc.lpszClassName, L"MonsterHunterRiseTrainer", WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, nullptr, nullptr, wc.hInstance, nullptr);
 
     // Initialize Direct3D
     if (!CreateDeviceD3D(hwnd))
@@ -24,6 +24,7 @@ int main(void)
 
     // Show the window
     //::ShowWindow(hwnd, SW_SHOWDEFAULT);
+    //::ShowWindow(hwnd, SW_SHOW);
     ::ShowWindow(hwnd, SW_HIDE);
     ::UpdateWindow(hwnd);
 
@@ -66,8 +67,8 @@ int main(void)
     auto pm = std::make_shared<ProcessManager>();
     auto processName = L"MonsterHunterRise.exe";
     ProcessManager::init(processName, pm);
-    // auto pm = ProcessManager::init(L"Tutorial-x86_64.exe");
 
+    // TrainerItems Init
     std::vector<std::shared_ptr<ITrainerItem>> trainerItems = { 
         // checkbox
         std::make_shared<HPTrainerItem>(pm), 
@@ -126,12 +127,10 @@ int main(void)
         ImGui_ImplWin32_NewFrame();
         ImGui::NewFrame();
 
-        // 2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
-        {
-            static float f = 0.0f;
-            static int counter = 0;
 
-            ImGui::Begin(u8"怪物猎人崛起：曙光 修改器", &show_main_window); // Create a window called "Hello, world!" and append into it.
+        // custom ui code here
+        {
+            ImGui::Begin(u8"怪物猎人崛起：曙光 修改器", &show_main_window);
 
             if (!pm->processRunning()) {
                 ProcessManager::init(processName, pm);
@@ -143,7 +142,7 @@ int main(void)
                 }
             }
 
-            ImGui::SetCursorPosY(ImGui::GetWindowHeight() - ImGui::GetTextLineHeightWithSpacing());
+            ImGui::NewLine();
             ImGui::Text("Author Github: https://github.com/VaneLord67");
 
             ImGui::End();
