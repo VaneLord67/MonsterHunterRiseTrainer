@@ -107,8 +107,11 @@ bool ProcessManager::processRunning() {
     return false; // 如果无法获取退出代码，则默认返回false
 }
 
-uint64_t ProcessManager::getTargetAddress(uint64_t addr, const std::vector<int64_t>& offsets) {
-    uint64_t pointer = baseAddress + addr;
+uint64_t ProcessManager::getTargetAddress(uint64_t addr, const std::vector<int64_t>& offsets, bool abs) {
+    uint64_t pointer = addr;
+    if (!abs) {
+        pointer += baseAddress;
+    }
     bool ok = true;
     ok = ReadProcessMemory(this->hProcess, reinterpret_cast<LPCVOID>(pointer), &pointer, 8, nullptr);
     if (!ok) {
@@ -121,6 +124,9 @@ uint64_t ProcessManager::getTargetAddress(uint64_t addr, const std::vector<int64
         if (it == std::prev(offsets.end())) {
             return pointer + offset;
         }
+        if (pointer + offset == 0) {
+            return 0;
+        }
         ok = ReadProcessMemory(this->hProcess, reinterpret_cast<LPCVOID>(pointer + offset), &pointer, 8, nullptr);
         if (!ok) {
             std::cerr << "Failed to read addr:" << std::hex
@@ -131,13 +137,26 @@ uint64_t ProcessManager::getTargetAddress(uint64_t addr, const std::vector<int64
     return 0;
 }
 
-bool ProcessManager::readMemory(uint64_t addr, const std::vector<int64_t>& offsets, void* value, size_t size) {
-    uint64_t targetAddress = getTargetAddress(addr, offsets);
+bool ProcessManager::readMemory(uint64_t addr, const std::vector<int64_t>& offsets, void* value, size_t size, bool abs) {
+    uint64_t targetAddress = getTargetAddress(addr, offsets, abs);
+    if (targetAddress == NULL) {
+        return false;
+    }
     return ReadProcessMemory(this->hProcess, reinterpret_cast<LPCVOID>(targetAddress), value, size, nullptr);
 }
 
-bool ProcessManager::writeMemory(uint64_t addr, const std::vector<int64_t>& offsets, void* value, size_t size) {
-    uint64_t targetAddress = getTargetAddress(addr, offsets);
+bool ProcessManager::readMemory(uint64_t absAddr, void* value, size_t size) {
+    if (absAddr == NULL) {
+        return false;
+    }
+    return ReadProcessMemory(this->hProcess, reinterpret_cast<LPCVOID>(absAddr), value, size, nullptr);
+}
+
+bool ProcessManager::writeMemory(uint64_t addr, const std::vector<int64_t>& offsets, void* value, size_t size, bool abs) {
+    uint64_t targetAddress = getTargetAddress(addr, offsets, abs);
+    if (targetAddress == NULL) {
+        return false;
+    }
     return WriteProcessMemory(hProcess, reinterpret_cast<LPVOID>(targetAddress), value, size, NULL);
 }
 

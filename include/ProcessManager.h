@@ -16,7 +16,7 @@ private:
 	HANDLE hProcess;
 	LPVOID virAddr;
 
-	uint64_t getTargetAddress(uint64_t addr, const std::vector<int64_t>& offsets);
+	uint64_t getTargetAddress(uint64_t addr, const std::vector<int64_t>& offsets, bool abs);
 public:
 	ProcessManager() : pid(0), baseAddress(0), hProcess(0), virAddr(0) {};
 	~ProcessManager() {
@@ -28,8 +28,9 @@ public:
 	static bool init(const wchar_t* processName, std::shared_ptr<ProcessManager> pm);
 	bool processRunning();
 	
-	bool readMemory(uint64_t addr, const std::vector<int64_t>& offsets, void* value, size_t size);
-	bool writeMemory(uint64_t addr, const std::vector<int64_t>& offsets, void* value, size_t size);
+	bool readMemory(uint64_t addr, const std::vector<int64_t>& offsets, void* value, size_t size, bool abs=false);
+	bool readMemory(uint64_t absAddr, void* value, size_t size);
+	bool writeMemory(uint64_t addr, const std::vector<int64_t>& offsets, void* value, size_t size, bool abs=false);
 
 	// 不分配虚拟内存，直接在代码注入点处修改
 	bool codeSimpleInject(uint64_t codeInjectAddr, BYTE* oldCode, BYTE* newCode, size_t codeSize);

@@ -5,14 +5,14 @@
 界面使用Dear ImGUI轻量级框架
 
 # 修改器功能
-![修改器功能](https://cdn.jsdelivr.net/gh/VaneLord67/blog-img/20240422204730.png)
+![修改器功能](https://cdn.jsdelivr.net/gh/VaneLord67/blog-img/20240424234347.png)
 
 # Todo List
 
 - [ ] Feature：实现指定坐标，人物瞬移
 - [ ] Feature：立刻完成任务
 - [x] Fix：非狩猎区修改气刃槽崩溃的问题
-- [ ] Fix：当前锁定怪物索引不匹配的问题
+- [x] Fix：当前锁定怪物索引不匹配的问题
 - [x] Fix：狂龙症状态下，翔虫无CD失效的问题
 - [x] Fix：窗口不自动生成TaskBar的问题
 
