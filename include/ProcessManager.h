@@ -39,6 +39,5 @@ public:
 	bool codeInject(uint64_t codeInjectAddr, BYTE* oldCode, size_t codeSize, std::vector<BYTE> shellCode, LPVOID& virAddr);
 	bool codeRestore(uint64_t codeRestoreAddr, BYTE* oldCode, size_t codeSize, LPVOID& virAddr);
 
-	bool codeInjectTest();
-	bool codeRestoreTest();
+	void jmpFar(std::vector<BYTE>& code, uint64_t jmpOffset);
 };

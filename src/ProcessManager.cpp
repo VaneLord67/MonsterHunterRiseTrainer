@@ -219,62 +219,8 @@ bool ProcessManager::codeRestore(uint64_t codeRestoreAddr, BYTE* oldCode, size_t
     return true;
 }
 
- bool ProcessManager::codeInjectTest() {
-    // PWD 013370
-    LPVOID virAddr = VirtualAllocEx(hProcess, NULL, 4096, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
-    if (virAddr == 0) {
-        std::cerr << "Failed to alloc virtual memory" << std::endl;
-        return false;
-    }
-    std::cerr << "virAddr = " << std::hex
-        << std::setw(16) << std::setfill('0') << (uint64_t)virAddr << std::endl;
-    this->virAddr = virAddr;
-    BYTE oldCode[16] = { 0 };
-    bool ok = ReadProcessMemory(this->hProcess, reinterpret_cast<LPCVOID>(baseAddress + 0x2D4F7), oldCode, sizeof(oldCode), nullptr);
-    if (!ok) {
-        std::cerr << "Read old code error" << std::endl;
-        return false;
-    }
-  
-    BYTE newCode[16] = { 0xFF, 0x25, 0x00, 0x00, 0x00, 0x00 };
-    QWORD2BYTE((uint64_t)virAddr, newCode + 6);
-    newCode[14] = 0x66;
-    newCode[15] = 0x90;
-    ok = WriteProcessMemory(hProcess, reinterpret_cast<LPVOID>(this->baseAddress + 0x2D4F7), newCode, 16, NULL);
-    if (!ok) {
-        std::cerr << "Failed to write new code" << std::endl;
-        return false;
-    }
-    BYTE shellCode[64] = { 0x83, 0x86, 0xE0, 0x07, 0x00, 0x00, 0x02, 0x48, 0x8D, 0x4D, 0xF8, 0xFF, 0x15, 0x02, 0x00, 0x00, 0x00, 0xEB, 0x08};
-    uint64_t callTarget = this->baseAddress + 0x8E20;
-    QWORD2BYTE(callTarget, shellCode + 19);
-    BYTE jmpFar[6] = { 0xFF, 0x25, 0x00, 0x00, 0x00, 0x00 };
-    memcpy(shellCode + 27, jmpFar, 6);
-    uint64_t jmpTarget = this->baseAddress + 0x2D4F7 + 16;
-    QWORD2BYTE(jmpTarget, shellCode + 33);
-    ok = WriteProcessMemory(hProcess, reinterpret_cast<LPVOID>(virAddr), shellCode, 41, NULL);
-    if (!ok) {
-        std::cerr << "Failed to write shell code" << std::endl;
-        return false;
-    }
-    return true;
-}
-
-bool ProcessManager::codeRestoreTest() {
-    if (this->virAddr == 0) {
-        std::cerr << "this->virAddr == 0" << std::endl;
-        return true;
-    }
-    bool ok = VirtualFreeEx(hProcess, this->virAddr, 0, MEM_RELEASE);
-    if (!ok) {
-        std::cerr << "Failed to free virtual memory" << std::endl;
-        return false;
-    }
-    BYTE oldCode[16] = { 0x83, 0xAE, 0xE0, 0x07, 0x00, 0x00, 0x01, 0x48, 0x8D, 0x4D, 0xF8, 0xE8, 0x19, 0xB9, 0xFD, 0xFF };
-    ok = WriteProcessMemory(hProcess, reinterpret_cast<LPVOID>(this->baseAddress + 0x2D4F7), oldCode, 16, NULL);
-    if (!ok) {
-        std::cerr << "Failed to restore code" << std::endl;
-        return false;
-    }
-    return true;
+void ProcessManager::jmpFar(std::vector<BYTE>& code, uint64_t jmpOffset) {
+    code.insert(code.end(), { 0xFF, 0x25, 0x00, 0x00, 0x00, 0x00 });
+    uint64_t jmpTarget = this->baseAddress + jmpOffset;
+    vecInsertQWORD(jmpTarget, code);
 }
