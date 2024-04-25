@@ -89,7 +89,7 @@ bool ProcessManager::init(const wchar_t* processName, std::shared_ptr<ProcessMan
     processManager->hProcess = hProcess;
     uint64_t baseAddress = GetProcessBaseAddress(pid, processName);
     if (baseAddress == 0) {
-        std::cerr << "Failed to get base address of " << processName << std::endl;
+        std::cerr << "Failed to get base address of process" << std::endl;
         return false;
     }
     processManager->baseAddress = baseAddress;
@@ -130,7 +130,7 @@ uint64_t ProcessManager::getTargetAddress(uint64_t addr, const std::vector<int64
         ok = ReadProcessMemory(this->hProcess, reinterpret_cast<LPCVOID>(pointer + offset), &pointer, 8, nullptr);
         if (!ok) {
             std::cerr << "Failed to read addr:" << std::hex
-                << std::setw(16) << std::setfill('0') << pointer << std::endl;
+                << std::setw(16) << std::setfill('0') << pointer + offset << std::endl;
             return 0;
         }
     }

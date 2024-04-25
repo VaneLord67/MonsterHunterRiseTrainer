@@ -4,6 +4,34 @@
 #include "../include/ITrainerItem.h"
 #include "../include/TrainerItems.h"
 
+void initTrainerItems(std::vector<std::shared_ptr<ITrainerItem>>& trainerItems, std::shared_ptr<ProcessManager> pm) {
+    trainerItems = {
+        // checkbox
+        std::make_shared<HPTrainerItem>(pm),
+        std::make_shared<StaminaTrainerItem>(pm),
+        std::make_shared<AttackPropertyTrainerItem>(pm),
+        std::make_shared<DefensePropertyTrainerItem>(pm),
+        std::make_shared<LockWeaponDurabilityTrainerItem>(pm),
+        std::make_shared<LongSwordEnergyTrainerItem>(pm),
+        std::make_shared<LongSwordLevelTrainerItem>(pm),
+        std::make_shared<FreeBuyTrainerItem>(pm),
+        std::make_shared<ForeverUseItemTrainerItem>(pm),
+        std::make_shared<WirebugZeroCoolDownTrainerItem>(pm),
+        std::make_shared<ForeverEnvWirebugTrainerItem>(pm),
+        //std::make_shared<UnlimitGrabMaterialTrainerItem>(pm), // 该功能会导致结算后游戏崩溃，故不开放
+        
+        // button
+        std::make_shared<MoneyTrainerItem>(pm),
+        std::make_shared<PointTrainerItem>(pm),
+        std::make_shared<BagFirstItemCountTrainerItem>(pm),
+        std::make_shared<BagFirstItemIDTrainerItem>(pm),
+        std::make_shared<TargetMonsterHPTrainerItem>(pm),
+        // raw button
+        std::make_shared<ZeroHourglassTrainerItem>(pm),
+        std::make_shared<ResetTaskTimeTrainerItem>(pm),
+    };
+}
+
 int WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 //int main(void)
 {
@@ -69,30 +97,8 @@ int WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPS
     ProcessManager::init(processName, pm);
 
     // TrainerItems Init
-    std::vector<std::shared_ptr<ITrainerItem>> trainerItems = { 
-        // checkbox
-        std::make_shared<HPTrainerItem>(pm), 
-        std::make_shared<StaminaTrainerItem>(pm),
-        std::make_shared<AttackPropertyTrainerItem>(pm),
-        std::make_shared<DefensePropertyTrainerItem>(pm),
-        std::make_shared<LockWeaponDurabilityTrainerItem>(pm),
-        std::make_shared<LongSwordEnergyTrainerItem>(pm),
-        std::make_shared<LongSwordLevelTrainerItem>(pm),
-        std::make_shared<FreeBuyTrainerItem>(pm),
-        std::make_shared<ForeverUseItemTrainerItem>(pm),
-        std::make_shared<WirebugZeroCoolDownTrainerItem>(pm),
-        std::make_shared<ForeverEnvWirebugTrainerItem>(pm),
-        std::make_shared<UnlimitGrabMaterialTrainerItem>(pm),
-        // button
-        std::make_shared<MoneyTrainerItem>(pm),
-        std::make_shared<PointTrainerItem>(pm),
-        std::make_shared<BagFirstItemCountTrainerItem>(pm),
-        std::make_shared<BagFirstItemIDTrainerItem>(pm),
-        std::make_shared<TargetMonsterHPTrainerItem>(pm),
-        // raw button
-        std::make_shared<ZeroHourglassTrainerItem>(pm),
-        std::make_shared<ResetTaskTimeTrainerItem>(pm),
-    };
+    std::vector<std::shared_ptr<ITrainerItem>> trainerItems = {};
+    initTrainerItems(trainerItems, pm);
 
     while (!done)
     {
@@ -130,7 +136,9 @@ int WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPS
 
         // custom ui code here
         {
-            static ImGuiWindowFlags main_window_flags = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings;
+            static ImGuiWindowFlags main_window_flags = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove 
+                | ImGuiWindowFlags_NoSavedSettings 
+                | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoScrollWithMouse;
             const ImGuiViewport* viewport = ImGui::GetMainViewport();
             ImGui::SetNextWindowPos(viewport->WorkPos);
             ImGui::SetNextWindowSize(viewport->WorkSize);
@@ -138,7 +146,10 @@ int WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPS
             ImGui::Begin(u8"怪物猎人崛起：曙光 修改器", &show_main_window, main_window_flags);
 
             if (!pm->processRunning()) {
-                ProcessManager::init(processName, pm);
+                bool ok = ProcessManager::init(processName, pm);
+                if (ok) {
+                    initTrainerItems(trainerItems, pm);
+                }
                 ImGui::Text(u8"未检测到进程运行: %ls", processName);
             }
             else {
@@ -148,7 +159,8 @@ int WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPS
                 }
             }
 
-            ImGui::NewLine();
+            //ImGui::NewLine();
+            ImGui::SetCursorPosY(ImGui::GetWindowHeight() - ImGui::GetTextLineHeightWithSpacing());
             ImGui::Text("Author Github: https://github.com/VaneLord67");
 
             ImGui::End();
