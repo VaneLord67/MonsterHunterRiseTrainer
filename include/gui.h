@@ -9,16 +9,19 @@
 #include "../third_party/imgui/imstb_textedit.h"
 #include "../third_party/imgui/imstb_truetype.h"
 #include <windows.h>
+#include <functional>
 
 #include "d3d11.h"
 #pragma comment(lib, "d3d11.lib")
 
 // Data
-static ID3D11Device* g_pd3dDevice = nullptr;
-static ID3D11DeviceContext* g_pd3dDeviceContext = nullptr;
-static IDXGISwapChain* g_pSwapChain = nullptr;
-static UINT g_ResizeWidth = 0, g_ResizeHeight = 0;
-static ID3D11RenderTargetView* g_mainRenderTargetView = nullptr;
+extern ID3D11Device* g_pd3dDevice;
+extern ID3D11DeviceContext* g_pd3dDeviceContext;
+extern IDXGISwapChain* g_pSwapChain;
+extern UINT g_ResizeWidth, g_ResizeHeight;
+extern ID3D11RenderTargetView* g_mainRenderTargetView;
+extern bool show_main_window;
+extern ImGuiWindowFlags main_window_flags;
 
 
 // Forward declarations of helper functions
@@ -27,3 +30,4 @@ void CleanupDeviceD3D();
 void CreateRenderTarget();
 void CleanupRenderTarget();
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+bool GuiMain(const std::function<void()>& customUI);

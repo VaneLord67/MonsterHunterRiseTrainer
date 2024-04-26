@@ -49,6 +49,7 @@
     <ClInclude Include="include\ITrainerItem.h" />
     <ClInclude Include="include\ResetTaskTimeTrainerItem.h" />
     <ClInclude Include="include\StaminaTrainerItem.h" />
+    <ClInclude Include="include\SteelHeartTrainerItem.h" />
     <ClInclude Include="include\TargetMonsterHPTrainerItem.h" />
     <ClInclude Include="include\TrainerItems.h" />
     <ClInclude Include="include\UnlimitGrabMaterialTrainerItem.h" />

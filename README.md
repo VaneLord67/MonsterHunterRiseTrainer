@@ -5,7 +5,7 @@
 界面使用Dear ImGUI轻量级框架
 
 # 修改器功能
-![修改器功能](https://cdn.jsdelivr.net/gh/VaneLord67/blog-img/20240424234347.png)
+![修改器功能](https://cdn.jsdelivr.net/gh/VaneLord67/blog-img/20240426163418.png)
 
 # Todo List
 
