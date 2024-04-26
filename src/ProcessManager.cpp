@@ -93,11 +93,12 @@ bool ProcessManager::init(const wchar_t* processName, std::shared_ptr<ProcessMan
         return false;
     }
     processManager->baseAddress = baseAddress;
+    std::cout << "success to init ProcessManager" << std::endl;
     return true;
 }
 
 bool ProcessManager::processRunning() {
-    if (this->pid == 0) {
+    if (this->pid == NULL || this->hProcess == NULL || this->baseAddress == NULL) {
         return false;
     }
     DWORD exitCode;
@@ -115,8 +116,8 @@ uint64_t ProcessManager::getTargetAddress(uint64_t addr, const std::vector<int64
     bool ok = true;
     ok = ReadProcessMemory(this->hProcess, reinterpret_cast<LPCVOID>(pointer), &pointer, 8, nullptr);
     if (!ok) {
-        std::cerr << "Failed to read addr:" << std::hex
-            << std::setw(16) << std::setfill('0') << baseAddress + addr << std::endl;
+        //std::cerr << "Failed to read addr:" << std::hex
+            //<< std::setw(16) << std::setfill('0') << baseAddress + addr << std::endl;
         return 0;
     }
     for (auto it = offsets.begin(); it != offsets.end(); ++it) {
@@ -129,8 +130,8 @@ uint64_t ProcessManager::getTargetAddress(uint64_t addr, const std::vector<int64
         }
         ok = ReadProcessMemory(this->hProcess, reinterpret_cast<LPCVOID>(pointer + offset), &pointer, 8, nullptr);
         if (!ok) {
-            std::cerr << "Failed to read addr:" << std::hex
-                << std::setw(16) << std::setfill('0') << pointer + offset << std::endl;
+            //std::cerr << "Failed to read addr:" << std::hex
+                //<< std::setw(16) << std::setfill('0') << pointer + offset << std::endl;
             return 0;
         }
     }

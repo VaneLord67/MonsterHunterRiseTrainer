@@ -5,6 +5,7 @@
 #include "../include/TrainerItems.h"
 
 void initTrainerItems(std::vector<std::shared_ptr<ITrainerItem>>& trainerItems, std::shared_ptr<ProcessManager> pm) {
+    std::cout << "initTrainerItems" << std::endl;
     trainerItems = {
         // checkbox
         std::make_shared<HPTrainerItem>(pm),
@@ -19,6 +20,7 @@ void initTrainerItems(std::vector<std::shared_ptr<ITrainerItem>>& trainerItems, 
         std::make_shared<WirebugZeroCoolDownTrainerItem>(pm),
         std::make_shared<ForeverEnvWirebugTrainerItem>(pm),
         //std::make_shared<UnlimitGrabMaterialTrainerItem>(pm), // 该功能会导致结算后游戏崩溃，故不开放
+        std::make_shared<SteelHeartTrainerItem>(pm),
         
         // button
         std::make_shared<MoneyTrainerItem>(pm),
@@ -32,8 +34,8 @@ void initTrainerItems(std::vector<std::shared_ptr<ITrainerItem>>& trainerItems, 
     };
 }
 
-int WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
-//int main(void)
+//int WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
+int main(void)
 {
     // Create application window
     // ImGui_ImplWin32_EnableDpiAwareness();
