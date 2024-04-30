@@ -30,6 +30,7 @@ void initTrainerItems(std::vector<std::shared_ptr<ITrainerItem>>& trainerItems, 
         std::make_shared<BagFirstItemCountTrainerItem>(pm),
         std::make_shared<BagFirstItemIDTrainerItem>(pm),
         std::make_shared<TargetMonsterHPTrainerItem>(pm),
+        std::make_shared<TransportTrainerItem>(pm),
         // raw button
         std::make_shared<ZeroHourglassTrainerItem>(pm),
         std::make_shared<ResetTaskTimeTrainerItem>(pm),
@@ -38,6 +39,7 @@ void initTrainerItems(std::vector<std::shared_ptr<ITrainerItem>>& trainerItems, 
 
 auto pm = std::make_shared<ProcessManager>();
 auto processName = L"MonsterHunterRise.exe";
+const wchar_t* windowName = L"怪物猎人崛起：曙光 修改器";
 std::vector<std::shared_ptr<ITrainerItem>> trainerItems = {};
 
 std::atomic<bool> processAvailable(false);
@@ -68,7 +70,7 @@ int WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPS
     std::thread initThread(initThreadFunc);
 
     bool ok = GuiMain([]() {
-        ImGui::Begin(u8"怪物猎人崛起：曙光 修改器", &show_main_window, main_window_flags);
+        ImGui::Begin(u8"##main_window", &show_main_window, main_window_flags);
 
         if (!processAvailable) {
             ImGui::Text(u8"未检测到进程运行: %ls", processName);
@@ -79,22 +81,6 @@ int WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPS
                 trainerItem->loop();
             }
         }
-
-        /*if (!pm->processRunning()) {
-            bool ok = ProcessManager::init(processName, pm);
-            if (ok) {
-                initTrainerItems(trainerItems, pm);
-            }
-            ImGui::Text(u8"未检测到进程运行: %ls", processName);
-        }
-        else {
-            ImGui::Text(u8"进程已运行：%ls", processName);
-            for (auto& trainerItem : trainerItems) {
-                trainerItem->loop();
-            }
-        }*/
-
-        //ImGui::NewLine();
         ImGui::SetCursorPosY(ImGui::GetWindowHeight() - ImGui::GetTextLineHeightWithSpacing());
         ImGui::Text("Author Github: https://github.com/VaneLord67");
 

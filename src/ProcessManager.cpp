@@ -113,6 +113,9 @@ uint64_t ProcessManager::getTargetAddress(uint64_t addr, const std::vector<int64
     if (!abs) {
         pointer += baseAddress;
     }
+    if (offsets.empty()) {
+        return pointer;
+    }
     bool ok = true;
     ok = ReadProcessMemory(this->hProcess, reinterpret_cast<LPCVOID>(pointer), &pointer, 8, nullptr);
     if (!ok) {

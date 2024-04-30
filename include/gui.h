@@ -22,6 +22,7 @@ extern UINT g_ResizeWidth, g_ResizeHeight;
 extern ID3D11RenderTargetView* g_mainRenderTargetView;
 extern bool show_main_window;
 extern ImGuiWindowFlags main_window_flags;
+extern const wchar_t* windowName;
 
 
 // Forward declarations of helper functions

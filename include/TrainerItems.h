@@ -19,3 +19,4 @@
 #include "TargetMonsterHPTrainerItem.h"
 #include "UnlimitGrabMaterialTrainerItem.h"
 #include "SteelHeartTrainerItem.h"
+#include "TransportTrainerItem.h"
